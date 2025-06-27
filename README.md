@@ -1,4 +1,5 @@
 Learnify – "Simplify learning for everyone"
+
 Learnify is a full-stack LMS web application using MongoDB, Express.js, React.js, and Node.js. Some of its prominent feature are:
 1. Implementing role-based authentication for users and admins using JWT and bcrypt.
 2. Following MVC architecture, RESTful APIs, and secure backend with Node.js + Express.
