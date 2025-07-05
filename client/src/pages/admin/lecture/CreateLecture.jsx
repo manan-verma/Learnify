@@ -7,7 +7,7 @@ import {
 } from "@/features/api/courseApi";
 import { Loader2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import Lecture from "./Lecture";
 
@@ -24,7 +24,7 @@ const CreateLecture = () => {
     data: lectureData,
     isLoading: lectureLoading,
     isError: lectureError,
-    refetch
+    refetch,
   } = useGetCourseLectureQuery(courseId);
 
   const createLectureHandler = async () => {
@@ -34,10 +34,10 @@ const CreateLecture = () => {
   useEffect(() => {
     if (isSuccess) {
       refetch();
-      toast.success(data?.message || "Lecture added successfully");
+      toast.success(data.message);
     }
     if (error) {
-      toast.error(error.data.message || "some error while adding lecture");
+      toast.error(error.data.message);
     }
   }, [isSuccess, error]);
 
@@ -47,18 +47,21 @@ const CreateLecture = () => {
     <div className="flex-1 mx-10">
       <div className="mb-4">
         <h1 className="font-bold text-xl">
-          Lets add lectures, add some basic details for your new course
+          Let's add lectures, add some basic details for your new lecture
         </h1>
-        <p className="text-sm">Woooahhhhh, Lesgoooo and create it!!</p>
+        <p className="text-sm">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus,
+          laborum!
+        </p>
       </div>
       <div className="space-y-4">
-        <div className="space-y-2">
+        <div>
           <Label>Title</Label>
           <Input
             type="text"
             value={lectureTitle}
             onChange={(e) => setLectureTitle(e.target.value)}
-            placeholder="Your Lecture Name"
+            placeholder="Your Title Name"
           />
         </div>
         <div className="flex items-center gap-2">
@@ -66,30 +69,30 @@ const CreateLecture = () => {
             variant="outline"
             onClick={() => navigate(`/admin/course/${courseId}`)}
           >
-            Back to Course
+            Back to course
           </Button>
           <Button disabled={isLoading} onClick={createLectureHandler}>
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Please Wait
+                Please wait
               </>
             ) : (
-              "Create Lecture"
+              "Create lecture"
             )}
           </Button>
         </div>
         <div className="mt-10">
           {lectureLoading ? (
-            <p>Loading lecture...</p>
+            <p>Loading lectures...</p>
           ) : lectureError ? (
-            <p>Failed to load lectures</p>
+            <p>Failed to load lectures.</p>
           ) : lectureData.lectures.length === 0 ? (
-            <p>No lecture available</p>
+            <p>No lectures availabe</p>
           ) : (
             lectureData.lectures.map((lecture, index) => (
               <Lecture
-                key={lectureData._id}
+                key={lecture._id}
                 lecture={lecture}
                 courseId={courseId}
                 index={index}
